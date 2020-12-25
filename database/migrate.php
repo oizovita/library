@@ -14,7 +14,7 @@ $db = DB::connection(
     $config['password']
 );
 
-$db->sql(
+$db->query(
     "CREATE TABLE IF NOT EXISTS migrations(
         id   TINYINT(1) UNSIGNED NOT NULL AUTO_INCREMENT,
         PRIMARY KEY (id),
@@ -29,7 +29,8 @@ $files = scandir(DIR);
 foreach ($files as $file) {
     if (!($file === '.' || $file === '..')) {
         if (!$db->select('migrations', ['*'])->where('migration', $file)->exec()) {
-            $db->sql(file_get_contents(__DIR__ . "/migrations/$file"));
+            $db->query(file_get_contents(__DIR__ . "/migrations/$file"));
+            echo $file . "\n";
             $db->insert('migrations', ['migration' => $file])->exec();
         }
     }

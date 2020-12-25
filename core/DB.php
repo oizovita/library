@@ -389,4 +389,11 @@ final class DB
         }
         return $stmt->fetch();
     }
+
+    /**
+     * @param $query
+     */
+    public function query($query){
+        self::$connection->query($query);
+    }
 }
