@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Src\Controllers;
-
 
 use Core\View;
 use Src\Models\Book;
@@ -10,6 +8,10 @@ use Core\Request;
 use Exception;
 use Src\Models\Author;
 
+/**
+ * Class AdminController
+ * @package Src\Controllers
+ */
 class AdminController
 {
     public const PER_PAGE = 4;
@@ -61,8 +63,7 @@ class AdminController
         }
 
         return $this->view->render('admin.main', [
-            'books' => $query->paginate(self::PER_PAGE, $request->page ?? 1),
-            'authors' => $this->author->query()->select($this->author->getTable(), ['id', 'name'])->get()
+            'books' => $query->paginate(self::PER_PAGE, $request->page ?? 1)
         ]);
     }
 
