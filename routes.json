@@ -1,0 +1,51 @@
+{
+  "main": {
+    "path": "/",
+    "method": "GET",
+    "controller": "BookController",
+    "action": "index"
+  },
+  "book_index": {
+    "path": "/books",
+    "method": "GET",
+    "controller": "BookController",
+    "action": "index"
+  },
+  "book_show": {
+    "path": "/books/([0-9]*)",
+    "method": "GET",
+    "controller": "BookController",
+    "action": "show"
+  },
+  "book_update": {
+    "path": "/books/([0-9]*)",
+    "method": "POST",
+    "controller": "BookController",
+    "action": "update"
+  },
+  "admin": {
+    "path": "/admin",
+    "method": "GET",
+    "controller": "AdminController",
+    "action": "index"
+  },
+  "admin_books_create": {
+    "path": "/admin/books",
+    "method": "POST",
+    "controller": "AdminController",
+    "action": "create"
+  },
+  "admin_books_update": {
+    "path": "/admin/books/([0-9]*)",
+    "method": "POST",
+    "controller": "AdminController",
+    "action": "update"
+  },
+  "admin_books_delete": {
+    "path": "/admin/books/([0-9]*)",
+    "method": "DELETE",
+    "controller": "AdminController",
+    "action": "delete"
+  }
+}
+

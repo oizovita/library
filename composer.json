@@ -1,0 +1,22 @@
+{
+    "name": "oizovita/todo-api",
+    "authors": [
+        {
+            "name": "oizovita",
+            "email": "oizovita@yahoo.com"
+        }
+    ],
+    "require": {
+      "ext-json": "*",
+      "ext-pdo": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Core\\": "core/",
+            "Src\\": "src/"
+        }
+    },
+    "require-dev": {
+        "laravel/homestead": "^11.4"
+    }
+}
