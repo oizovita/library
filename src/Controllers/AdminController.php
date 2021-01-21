@@ -112,6 +112,9 @@ class AdminController
         if (isset($data['authors'])) {
             unset($data['authors']);
         }
+        if (isset($data['file'])) {
+            unset($data['file']);
+        }
 
         $this->book->query()->update($this->book->getTable(), $data)->where('id', $id)->exec();
 

@@ -95,7 +95,6 @@ class BookController
      */
     public function update(Request $request, int $id)
     {
-
         if ($request->view_count) {
             $this->book->query()
                 ->update($this->book->getTable(), ['view_count' => 1], true)
