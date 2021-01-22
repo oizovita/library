@@ -8,6 +8,8 @@ services:
       - ./:/var/www/html/libraryapp:rw
       - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh:rw
     command: nginx
+    ports:
+      - 80:80
     environment:
       - ENVIRONMENT=DEVELOPMENT
     restart: unless-stopped
