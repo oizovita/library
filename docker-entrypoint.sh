@@ -17,7 +17,6 @@ if [ "$1" == "backend" ]; then
   if [ "${ENVIRONMENT}" == "DEVELOPMENT" ]; then
     runcmd "composer install"
   fi
-  runcmd "chmod  public/images"
   runcmd "php database/migrate.php"
 
   echo "Running php-fpm"
