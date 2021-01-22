@@ -10,8 +10,6 @@ services:
     command: nginx
     environment:
       - ENVIRONMENT=DEVELOPMENT
-    ports:
-      - "${BACKEND_BIND_ADDRESS:-0.0.0.0}:${BACKEND_BIND_PORT:-80}:80"
     restart: unless-stopped
     networks:
       - library_net
