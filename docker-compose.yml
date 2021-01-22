@@ -17,7 +17,7 @@ services:
       - library_net
     labels:
       - "traefik.enable=true"
-      - "traefik.backend=${BACKEND_DOMAIN_NAME:-reading-room.me}"
+      - "traefik.backend=reading-room.me"
     logging:
       driver: "json-file"
       options:
@@ -62,8 +62,23 @@ services:
         max-size: "10M"
         max-file: "5"
 
+  traefik:
+    image: traefik
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - web
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/traefik/traefik.toml:/traefik.toml
+      - /opt/traefik/acme.json:/acme.json
+    container_name: traefik
+
 networks:
   library_net:
     name: library_net
     driver: bridge
     internal: false
+    external: true
