@@ -38,6 +38,7 @@ services:
       - "traefik.backend=reading-room.me"
       - "traefik.basic.frontend.rule=Host:reading-room.me"
       - "traefik.port=80"
+      - "traefik.docker.network=library_net"
     logging:
       driver: "json-file"
       options:
