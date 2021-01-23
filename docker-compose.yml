@@ -13,6 +13,12 @@ services:
     restart: unless-stopped
     networks:
       - library_net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=reading-room.me"
+      - "traefik.basic.frontend.rule=Host:reading-room.me"
+      - "traefik.port=80"
+      - "traefik.docker.network=library_net"
     logging:
       driver: "json-file"
       options:
@@ -33,12 +39,6 @@ services:
       - ENVIRONMENT=DEVELOPMENT
     networks:
       - library_net
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=reading-room.me"
-      - "traefik.basic.frontend.rule=Host:reading-room.me"
-      - "traefik.port=80"
-      - "traefik.docker.network=library_net"
     logging:
       driver: "json-file"
       options:
