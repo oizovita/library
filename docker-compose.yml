@@ -68,7 +68,7 @@ services:
   traefik:
     image: traefik
     restart: always
-    command: --web -c /etc/traefik/traefik.toml --LOGLEVEL=debug
+    command: --web -c traefik.toml --LOGLEVEL=debug
     ports:
       - 80:80
       - 443:443
