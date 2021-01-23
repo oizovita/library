@@ -81,5 +81,4 @@ networks:
   library_net:
     name: library_net
     driver: bridge
-    internal: false
     external: true
