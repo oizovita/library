@@ -36,9 +36,11 @@ services:
     networks:
       - library_net
     labels:
+      - "traefik.enable=true"
       - "traefik.docker.network=library_net"
       - "traefik.basic.frontend.rule=Host:reading-room.me"
       - "traefik.basic.protocol=http"
+      - "traefik.port=80"
     logging:
       driver: "json-file"
       options:
@@ -63,10 +65,10 @@ services:
         max-size: "10M"
         max-file: "5"
 
-
   traefik:
-    image: traefik:v1.7
+    image: traefik
     restart: always
+    command: --web -c /etc/traefik/traefik.toml --LOGLEVEL=debug
     ports:
       - 80:80
       - 443:443
@@ -74,8 +76,8 @@ services:
       - library_net
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /opt/traefik/traefik.toml:/traefik.toml
-      - /opt/traefik/acme.json:/acme.json
+      - ./traefik.toml:/traefik.toml
+      - ./acme.json:/acme.json
     container_name: traefik
 
 networks:
