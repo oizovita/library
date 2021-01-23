@@ -36,18 +36,9 @@ services:
     networks:
       - library_net
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.backend.entrypoints=http"
-      - "traefik.http.routers.backend.rule=Host(`reading-room.me`)"
-      - "traefik.http.middlewares.backend-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.backend.middlewares=backend-https-redirect"
-      - "traefik.http.routers.backend-secure.entrypoints=https"
-      - "traefik.http.routers.backend-secure.rule=Host(`reading-room.me`)"
-      - "traefik.http.routers.backend-secure.tls=true"
-      - "traefik.http.routers.backend-secure.tls.certresolver=http"
-      - "traefik.http.routers.backend-secure.service=backend"
-      - "traefik.http.services.backend.loadbalancer.server.port=8888"
-      - "traefik.docker.network=proxy"
+      - "traefik.docker.network=library_net"
+      - "traefik.basic.frontend.rule=Host:reading-room.me"
+      - "traefik.basic.protocol=http"
     logging:
       driver: "json-file"
       options:
@@ -74,34 +65,18 @@ services:
 
 
   traefik:
-    image: traefik:v2.0
-    container_name: traefik
-    restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
-    networks:
-      - library_net
+    image: traefik:v1.7
+    restart: always
     ports:
       - 80:80
       - 443:443
+    networks:
+      - library_net
     volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./traefik.yml:/traefik.yml:ro
-      - ./acme.json:/acme.json
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.traefik.entrypoints=http"
-      - "traefik.http.routers.traefik.rule=Host(`monitor.domain.com`)"
-      - "traefik.http.middlewares.traefik-auth.basicauth.users=admin:secret_password"
-      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
-      - "traefik.http.routers.traefik-secure.entrypoints=https"
-      - "traefik.http.routers.traefik-secure.rule=Host(`monitor.domain.com`)"
-      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
-      - "traefik.http.routers.traefik-secure.tls=true"
-      - "traefik.http.routers.traefik-secure.tls.certresolver=http"
-      - "traefik.http.routers.traefik-secure.service=api@internal"
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/traefik/traefik.toml:/traefik.toml
+      - /opt/traefik/acme.json:/acme.json
+    container_name: traefik
 
 networks:
   library_net:
