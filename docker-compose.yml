@@ -37,9 +37,8 @@ services:
       - library_net
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=library_net"
+      - "traefik.backend=reading-room.me"
       - "traefik.basic.frontend.rule=Host:reading-room.me"
-      - "traefik.basic.protocol=http"
       - "traefik.port=80"
     logging:
       driver: "json-file"
